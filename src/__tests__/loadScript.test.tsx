@@ -14,6 +14,54 @@ describe("loadScript", () => {
     await expect(loadScript("")).rejects.toThrow('No "src" provided to loadScript');
   });
 
+  test("assigns all direct script properties correctly", async () => {
+    const props = {
+      async: false,
+      defer: true,
+      fetchPriority: "low",
+      noModule: true,
+      id: "test-script",
+      type: "text/javascript",
+      crossOrigin: "anonymous",
+      referrerPolicy: "origin",
+      integrity: "sha384-abc123",
+      nonce: "xyz123",
+      textContent: "Hello, world!",
+    } as LoadScriptOptions;
+
+    const promise = loadScript(SCRIPT_SRC, props);
+
+    const [script] = document.querySelectorAll(`script[src="${SCRIPT_SRC}"]`);
+    expect(script).toBeDefined();
+
+    script?.dispatchEvent(new Event("load"));
+    const resolved = await promise;
+
+    expect(resolved.async).toBe(false);
+    expect(resolved.id).toBe("test-script");
+    expect(resolved.defer).toBe(true);
+    expect(resolved.fetchPriority).toBe("low");
+    expect(resolved.noModule).toBe(true);
+    expect(resolved.type).toBe("text/javascript");
+    expect(resolved.crossOrigin).toBe("anonymous");
+    expect(resolved.referrerPolicy).toBe("origin");
+    expect(resolved.integrity).toBe("sha384-abc123");
+    expect(resolved.nonce).toBe("xyz123");
+    expect(resolved.textContent).toBe("Hello, world!");
+  });
+
+  test("applies additional script attributes via setAttribute", async () => {
+    const promise = loadScript(SCRIPT_SRC, { "data-id": "custom-script-id" });
+
+    const [script] = document.querySelectorAll(`script[src="${SCRIPT_SRC}"]`);
+    expect(script).toBeDefined();
+
+    script?.dispatchEvent(new Event("load"));
+    const resolved = await promise;
+
+    expect(resolved.getAttribute("data-id")).toBe("custom-script-id");
+  });
+
   test("resolves immediately if script already exists in DOM", async () => {
     const script = document.createElement("script");
     script.src = SCRIPT_SRC;
@@ -80,52 +128,16 @@ describe("loadScript", () => {
     expect(resolved2).not.toBe(resolved1);
   });
 
-  test("assigns all direct script properties correctly", async () => {
-    const props = {
-      async: false,
-      defer: true,
-      fetchPriority: "low",
-      noModule: true,
-      id: "test-script",
-      type: "text/javascript",
-      crossOrigin: "anonymous",
-      referrerPolicy: "origin",
-      integrity: "sha384-abc123",
-      nonce: "xyz123",
-      textContent: "Hello, world!",
-    } as LoadScriptOptions;
+  test("falls back to document.head when container is null", async () => {
+    const promise = loadScript(SCRIPT_SRC, { async: true }, null);
 
-    const promise = loadScript(SCRIPT_SRC, props);
-
-    const [script] = document.querySelectorAll(`script[src="${SCRIPT_SRC}"]`);
+    const script = document.querySelector(`head script[src="${SCRIPT_SRC}"]`);
     expect(script).toBeDefined();
 
     script?.dispatchEvent(new Event("load"));
     const resolved = await promise;
 
-    expect(resolved.async).toBe(false);
-    expect(resolved.id).toBe("test-script");
-    expect(resolved.defer).toBe(true);
-    expect(resolved.fetchPriority).toBe("low");
-    expect(resolved.noModule).toBe(true);
-    expect(resolved.type).toBe("text/javascript");
-    expect(resolved.crossOrigin).toBe("anonymous");
-    expect(resolved.referrerPolicy).toBe("origin");
-    expect(resolved.integrity).toBe("sha384-abc123");
-    expect(resolved.nonce).toBe("xyz123");
-    expect(resolved.textContent).toBe("Hello, world!");
-  });
-
-  test("applies additional script attributes via setAttribute", async () => {
-    const promise = loadScript(SCRIPT_SRC, { "data-id": "custom-script-id" });
-
-    const [script] = document.querySelectorAll(`script[src="${SCRIPT_SRC}"]`);
-    expect(script).toBeDefined();
-
-    script?.dispatchEvent(new Event("load"));
-    const resolved = await promise;
-
-    expect(resolved.getAttribute("data-id")).toBe("custom-script-id");
+    expect(document.head.contains(resolved)).toBe(true);
   });
 
   test("resolves when script loads", async () => {

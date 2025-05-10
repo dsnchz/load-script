@@ -76,19 +76,18 @@ export const __resetScriptCache = () => {
  * @example
  * ```ts
  * const script = await loadScript("https://example.com/library.js", { type: "module" }, document.head);
- * console.log("Script loaded:", script.src);
  * ```
  *
  * @param src - The script URL to load.
  * @param options - additional options for the script (e.g. async, type, textContent).
- * @param target - Optional DOM element to append the script to (defaults to `document.head`).
+ * @param container - Optional DOM element to append the script to (defaults to `document.head`).
  * @returns A Promise that resolves to the script element.
  */
 
 export const loadScript = async (
   src: string,
   options: LoadScriptOptions = {},
-  target: HTMLElement = document.head,
+  container: HTMLElement | null = document.head,
 ): Promise<HTMLScriptElement> => {
   const {
     id,
@@ -139,7 +138,8 @@ export const loadScript = async (
   const promise = new Promise<HTMLScriptElement>((resolve, reject) => {
     const script = document.createElement("script");
 
-    target.appendChild(script);
+    const _container = container ?? document.head;
+    _container.appendChild(script);
 
     script.src = src;
     script.type = type;

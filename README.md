@@ -28,19 +28,17 @@ await loadScript("https://example.com/library.js", {
 
 ## 🧠 API
 
-### `loadScript(src, options?, target?)`
+### `loadScript(src, options?, container?)`
 
 Loads an external script dynamically and returns a `Promise<HTMLScriptElement>`.
 
 #### Parameters:
 
-| Name      | Type                | Description                                   |
-| --------- | ------------------- | --------------------------------------------- |
-| `src`     | `string`            | Script URL (required)                         |
-| `options` | `LoadScriptOptions` | `loadScript` options (e.g. `async`, `type`)   |
-| `target`  | `HTMLElement`       | Target element to append to (default: `head`) |
-
----
+| Name        | Type                | Description                                                       |
+| ----------- | ------------------- | ----------------------------------------------------------------- |
+| `src`       | `string`            | Script URL (required)                                             |
+| `options`   | `LoadScriptOptions` | `loadScript` options (e.g. `async`, `type`)                       |
+| `container` | `HTMLElement`       | HTML element to append `<script />` to (default: `document.head`) |
 
 ## ✅ Features
 
@@ -72,11 +70,10 @@ const WidgetLoader = () => {
 };
 ```
 
----
-
 ## 📝 Notes
 
 - Scripts are cached by `src` unless `innerHTML` or `textContent` is used
+- A nil (`undefined`/`null`) container value will append the script to `document.head`.
 - Cleanup is not automatic — script elements remain in the DOM
 
 ---
