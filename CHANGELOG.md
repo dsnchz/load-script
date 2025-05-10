@@ -1,5 +1,11 @@
 # @dschz/load-script
 
+## 1.0.4
+
+### Patch Changes
+
+- adds handling of null container value which defaults to document.head
+
 ## 1.0.3
 
 ### Patch Changes

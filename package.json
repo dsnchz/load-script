@@ -1,6 +1,6 @@
 {
   "name": "@dschz/load-script",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Dynamically load scripts in the browser with caching.",
   "type": "module",
   "author": "Daniel Sanchez <dsanc89@icloud.com>",
