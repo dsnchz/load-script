@@ -1,5 +1,10 @@
 import type { Blocking, CrossOrigin, FetchPriority, ReferrerPolicy, ScriptType } from "./types";
 
+/**
+ * Options for loading a script.
+ *
+ * @see {@link loadScript}
+ */
 export type LoadScriptOptions = {
   /** Optional ID for DOM targeting or deduplication */
   readonly id?: string;
@@ -70,21 +75,12 @@ export const __resetScriptCache = () => {
  *
  * @example
  * ```ts
- * onMount(async () => {
- *   const script = await loadScript(
- *     "https://example.com/library.js",
- *     {
- *       async: true,
- *       type: "text/javascript",
- *     },
- *     document.body
- *   );
- *   console.log("Script loaded:", script.src);
- * });
+ * const script = await loadScript("https://example.com/library.js", { type: "module" }, document.head);
+ * console.log("Script loaded:", script.src);
  * ```
  *
  * @param src - The script URL to load.
- * @param attributes - HTML script attributes (e.g. async, type, innerHTML).
+ * @param options - additional options for the script (e.g. async, type, textContent).
  * @param target - Optional DOM element to append the script to (defaults to `document.head`).
  * @returns A Promise that resolves to the script element.
  */
