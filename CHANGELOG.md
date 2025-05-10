@@ -1,5 +1,11 @@
 # @dschz/load-script
 
+## 1.0.3
+
+### Patch Changes
+
+- Updates publishing script
+
 ## 1.0.2
 
 ### Patch Changes
