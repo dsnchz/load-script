@@ -93,7 +93,7 @@ export const loadScript = async (
   src: string,
   options: LoadScriptOptions = {},
   target: HTMLElement = document.head,
-) => {
+): Promise<HTMLScriptElement> => {
   const {
     id,
     async = true,
