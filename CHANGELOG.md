@@ -1,5 +1,11 @@
 # @dschz/load-script
 
+## 1.0.5
+
+### Patch Changes
+
+- Updates package keywords to improve discoverability
+
 ## 1.0.4
 
 ### Patch Changes
