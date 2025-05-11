@@ -102,8 +102,8 @@ export const loadScript = async (
     referrerPolicy,
     integrity,
     nonce,
-    onLoad = () => {},
-    onError = () => {},
+    onLoad,
+    onError,
     ...attributes
   } = options;
 

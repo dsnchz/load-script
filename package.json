@@ -15,6 +15,27 @@
   "publishConfig": {
     "access": "public"
   },
+  "keywords": [
+    "async",
+    "async-script",
+    "script",
+    "script-loader",
+    "script-injector",
+    "script-loader",
+    "inject",
+    "inject-script",
+    "load",
+    "loader",
+    "load-script",
+    "dynamic-script",
+    "external-script",
+    "html-script",
+    "browser",
+    "javascript",
+    "typescript",
+    "utility",
+    "promise"
+  ],
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",

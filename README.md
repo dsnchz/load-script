@@ -6,6 +6,12 @@
 
 > Lightweight utility for dynamically loading external scripts into the browser — framework-agnostic, caching-safe, and CSP-friendly.
 
+## ✅ Features
+
+- 📆 Small and framework-agnostic
+- 📑 Fully typed with TypeScript for autocompletion and safety
+- 🚫 Prevents duplicate script injection via internal cache
+
 ## 📦 Installation
 
 ```bash
@@ -40,43 +46,11 @@ Loads an external script dynamically and returns a `Promise<HTMLScriptElement>`.
 | `options`   | `LoadScriptOptions` | `loadScript` options (e.g. `async`, `type`)                       |
 | `container` | `HTMLElement`       | HTML element to append `<script />` to (default: `document.head`) |
 
-## ✅ Features
-
-- 📑 Fully typed with TypeScript for autocompletion and safety
-- 🚫 Prevents duplicate script injection via internal cache
-- ⚙️ Supports `data-*`, `nonce`, `fetchPriority`, `crossOrigin`, and other modern attributes
-- 📆 Small and framework-agnostic
-- 🔒 CSP-friendly via `nonce` support
-
----
-
-## 🧪 Example: With SolidJS
-
-```ts
-import { onMount } from "solid-js";
-import { loadScript } from "@dschz/load-script";
-
-const WidgetLoader = () => {
-  let containerRef!: HTMLElement;
-
-  onMount(async () => {
-    await loadScript("https://example.com/widget.js", {
-      type: "text/javascript",
-      async: true,
-    }, containerRef);
-  });
-
-  return <div ref={containerRef} />;
-};
-```
-
 ## 📝 Notes
 
-- Scripts are cached by `src` unless `innerHTML` or `textContent` is used
+- Scripts are cached by `src`. If `innerHTML` or `textContent` is set, the script will not be cached.
 - A nil (`undefined`/`null`) container value will append the script to `document.head`.
 - Cleanup is not automatic — script elements remain in the DOM
-
----
 
 ## 💬 Feedback & Contributions
 
