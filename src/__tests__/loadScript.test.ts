@@ -10,6 +10,33 @@ describe("loadScript", () => {
     __resetScriptCache();
   });
 
+  test("rejects when not in a browser environment", async () => {
+    const originalWindow = globalThis.window;
+    const originalDocument = globalThis.document;
+
+    Object.defineProperty(globalThis, "window", {
+      value: undefined,
+      writable: false,
+    });
+    Object.defineProperty(globalThis, "document", {
+      value: undefined,
+      writable: false,
+    });
+
+    const promise = loadScript("https://cdn.example.com/test.js");
+
+    await expect(promise).rejects.toThrow("loadScript can only be used in the browser");
+
+    Object.defineProperty(globalThis, "window", {
+      value: originalWindow,
+      writable: false,
+    });
+    Object.defineProperty(globalThis, "document", {
+      value: originalDocument,
+      writable: false,
+    });
+  });
+
   test("rejects if src is not provided", async () => {
     await expect(loadScript("")).rejects.toThrow('No "src" provided to loadScript');
   });

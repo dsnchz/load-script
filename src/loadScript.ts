@@ -62,6 +62,8 @@ export type LoadScriptOptions = {
 // Promise cache for script sources
 const SCRIPT_CACHE = new Map<string, Promise<HTMLScriptElement>>();
 
+const isBrowser = () => typeof window !== "undefined" && typeof window.document !== "undefined";
+
 export const __resetScriptCache = () => {
   SCRIPT_CACHE.clear();
 };
@@ -87,7 +89,7 @@ export const __resetScriptCache = () => {
 export const loadScript = async (
   src: string,
   options: LoadScriptOptions = {},
-  container: HTMLElement | null = document.head,
+  container?: HTMLElement | null,
 ): Promise<HTMLScriptElement> => {
   const {
     id,
@@ -107,8 +109,19 @@ export const loadScript = async (
     ...attributes
   } = options;
 
-  // 1. Reject if no src provided
-  if (!src) return Promise.reject(new Error('No "src" provided to loadScript'));
+  // 1. Reject if not in browser
+  if (!isBrowser()) {
+    const error = new Error("loadScript can only be used in the browser");
+    error.name = "NotBrowserEnvironmentError";
+    return Promise.reject(error);
+  }
+
+  // 2. Reject if no src provided
+  if (!src) {
+    const error = new Error('No "src" provided to loadScript');
+    error.name = "NoSrcProvidedError";
+    return Promise.reject(error);
+  }
 
   // We strictly consider scripts with innerHTML as non-cacheable, since they are not guaranteed to be idempotent.
   // Note: We intentionally ignore Solid reactivity here, since this logic is static and not part of a reactive execution context.
@@ -121,25 +134,24 @@ export const loadScript = async (
     // the script from the DOM but we still have the promise for it cached.
     const existingTag = document.querySelector(`script[src="${src}"]`) as HTMLScriptElement | null;
 
-    // 2. Check if script already exists in cache
+    // 3. Check if script already exists in cache
     if (SCRIPT_CACHE.has(src)) {
-      // 2a. If script exists in cache and is still in the DOM, return the cached promise
+      // 3a. If script exists in cache and is still in the DOM, return the cached promise
       if (document.contains(existingTag)) return SCRIPT_CACHE.get(src)!;
 
-      // 2b. Script element was removed from DOM — evict from cache
+      // 3b. Script element was removed from DOM — evict from cache
       SCRIPT_CACHE.delete(src);
     }
 
-    // 3. Check if script already exists (may have been added externally not via this hook)
+    // 4. Check if script already exists (may have been added externally not via this hook)
     if (existingTag) return Promise.resolve(existingTag);
   }
 
-  // 4. Create new script element
+  // 5. Create new script element
   const promise = new Promise<HTMLScriptElement>((resolve, reject) => {
     const script = document.createElement("script");
 
-    const _container = container ?? document.head;
-    _container.appendChild(script);
+    (container ?? document.head).appendChild(script);
 
     script.src = src;
     script.type = type;
