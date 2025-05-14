@@ -1,5 +1,11 @@
 # @dschz/load-script
 
+## 1.0.7
+
+### Patch Changes
+
+- updates readme documentation
+
 ## 1.0.6
 
 ### Patch Changes
