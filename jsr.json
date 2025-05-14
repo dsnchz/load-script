@@ -1,6 +1,10 @@
 {
   "name": "@dschz/load-script",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "license": "MIT",
-  "exports": "./src/index.ts"
+  "exports": "./src/index.ts",
+  "publish": {
+    "include": ["LICENSE", "README.md", "src/**/*.ts"],
+    "exclude": ["**/*.test.ts"]
+  }
 }

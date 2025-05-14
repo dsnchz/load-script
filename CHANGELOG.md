@@ -1,5 +1,11 @@
 # @dschz/load-script
 
+## 1.0.6
+
+### Patch Changes
+
+- make loadScript SSR safe with isBrowser guard to ensure function only runs in browser environments.
+
 ## 1.0.5
 
 ### Patch Changes
