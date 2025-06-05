@@ -3,6 +3,7 @@
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 [![npm version](https://img.shields.io/npm/v/@dschz/load-script?color=blue)](https://www.npmjs.com/package/@dschz/load-script)
 [![Bundle Size](https://img.shields.io/bundlephobia/minzip/@dschz/load-script)](https://bundlephobia.com/package/@dschz/load-script)
+[![JSR](https://jsr.io/badges/@dschz/load-script/score)](https://jsr.io/@dschz/load-script)
 [![CI](https://github.com/dsnchz/load-script/actions/workflows/ci.yaml/badge.svg)](https://github.com/dsnchz/load-script/actions/workflows/ci.yaml)
 
 > A lightweight utility for safely loading external scripts in the browser. Fully typed, SSR-aware, framework-agnostic, and caching-safe — ideal for modern web apps and libraries.
