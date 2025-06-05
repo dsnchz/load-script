@@ -1,9 +1,9 @@
-[![NPM Version](https://img.shields.io/npm/v/@dschz/load-script.svg?style=for-the-badge)](https://www.npmjs.com/package/@dschz/load-script)
-[![Build Status](https://img.shields.io/github/actions/workflow/status/dsnchz/load-script/ci.yaml?branch=main&logo=github&style=for-the-badge)](https://github.com/dsnchz/load-script/actions/workflows/ci.yaml)
-[![TypeScript](https://img.shields.io/badge/TypeScript-supported-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
-[![SSR Compatible](https://img.shields.io/badge/SSR-compatible-brightgreen?style=for-the-badge)](#)
-
 # @dschz/load-script
+
+[![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![npm version](https://img.shields.io/npm/v/@dschz/load-script?color=blue)](https://www.npmjs.com/package/@dschz/load-script)
+[![Bundle Size](https://img.shields.io/bundlephobia/minzip/@dschz/load-script)](https://bundlephobia.com/package/@dschz/load-script)
+[![CI](https://github.com/dsnchz/load-script/actions/workflows/ci.yaml/badge.svg)](https://github.com/dsnchz/load-script/actions/workflows/ci.yaml)
 
 > A lightweight utility for safely loading external scripts in the browser. Fully typed, SSR-aware, framework-agnostic, and caching-safe — ideal for modern web apps and libraries.
 
