@@ -1,5 +1,11 @@
 # @dschz/load-script
 
+## 1.0.9
+
+### Patch Changes
+
+- Adds JSR score badge to readme
+
 ## 1.0.8
 
 ### Patch Changes
