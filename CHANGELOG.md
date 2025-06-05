@@ -1,5 +1,11 @@
 # @dschz/load-script
 
+## 1.0.8
+
+### Patch Changes
+
+- updates readme badges
+
 ## 1.0.7
 
 ### Patch Changes
@@ -10,7 +16,7 @@
 
 ### Patch Changes
 
-- make loadScript SSR safe with isBrowser guard to ensure function only runs in browser environments.
+- **🛡️ SSR Safety**: Safe to import and use in server-side rendering and non-browser environments with graceful error handling
 
 ## 1.0.5
 
@@ -44,6 +50,33 @@
 
 ## 1.0.0
 
-### Major Changes
+**Initial Release**: Complete utility function for dynamically loading external scripts into the browser with advanced features and safety guarantees.
 
-- Utility function to dynamically load external scripts into the browser.
+### Features
+
+- **🔄 Smart Caching**: Prevents duplicate script injection via intelligent in-memory caching by script `src` URL
+- **⚡ Framework Agnostic**: Works with any JavaScript framework or vanilla JS applications
+- **📝 Full TypeScript Support**: Comprehensive type definitions with intellisense and autocomplete support
+- **🎯 Flexible Script Attributes**: Support for all standard HTML script attributes including:
+  - `async` and `defer` execution modes
+  - `type` specification (text/javascript, module, importmap, etc.)
+  - `integrity` for subresource integrity verification
+  - `nonce` for Content Security Policy compliance
+  - `crossOrigin` and `referrerPolicy` for CORS handling
+  - `fetchPriority` for resource loading optimization
+  - Custom `data-*` attributes support
+
+### Technical Details
+
+- **DOM Integration**: Flexible container targeting with fallback to `document.head`
+- **Promise-Based API**: Async/await compatible with proper error handling
+- **Event Handling**: Built-in `onLoad` and `onError` callback support
+- **Content Injection**: Support for both `innerHTML` and `textContent` with security considerations
+- **Cache Management**: Automatic cache invalidation when scripts are removed from DOM
+- **Type Safety**: Comprehensive TypeScript definitions for all HTML script element properties
+
+### API
+
+- `loadScript(src, options?, container?)` - Main function returning `Promise<HTMLScriptElement>`
+- `LoadScriptOptions` - Comprehensive options interface with full HTML script attribute support
+- Built-in type definitions for `CrossOrigin`, `FetchPriority`, `ReferrerPolicy`, and `ScriptType`
